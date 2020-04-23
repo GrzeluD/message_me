@@ -3,3 +3,14 @@
 .chatbox {
   height: 60vh;
 }
+
+.chatbox-container {
+  height: 90%;
+  overflow: auto;
+}
+
+.input {
+  .button {
+    display: none;
+  }
+}

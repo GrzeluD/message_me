@@ -6,17 +6,17 @@
 <div class="ui two column grid">
   <div class="twelve wide column">
     <div class="ui fluid raised card chatbox">
-      <div class="content">
-        <div class="ui large feed">
+      <div class="content chatbox-container">
+        <div class="ui large feed" id="message-container">
           <%= render @messages %>
         </div>
       </div>
       <div class="extra content">
-        <%= form_for(@message, html: { class: "ui reply form", role: "form" }, url: message_path) do |f| %>
+        <%= form_for(@message, html: { class: "ui reply form", role: "form" }, url: message_path, remote: true) do |f| %>
           <div class="field">
             <div class="ui fluid icon input">
-                <%= f.text_field :body, placeholder: "Start typing..." %>
-                <%= f.button '<i class="chat brown icon"></i>'.html_safe %>
+              <%= f.text_field :body, placeholder: "Start typing...",autocomplete: 'off' %>
+              <%= f.button '<i class="chat icon"></i>'.html_safe, class: "ui inverted brown button" %>
             </div>
           </div>
         <% end %>
@@ -27,15 +27,13 @@
 
   <div class="four wide column">
     <div class="ui vertical menu">
-      <a class="item">
-        Inbox
-      </a>
-      <a class="item">
-        Spam
-      </a>
-      <a class="item">
-        Updates
-      </a>
+      <% User.all.each do |user| %>
+        <% if user.online %>
+          <a class="item">
+            <%= user.username %>
+          </a>
+        <% end %>
+      <% end %>
     </div>
   </div>
 </div>
